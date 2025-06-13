@@ -25,3 +25,12 @@ vectorstore:
 
 qdrant:
   path: local_data/private_gpt/qdrant
+
+# Fixed field name (was model_manager, now models)
+models:
+  enabled: true
+  max_loaded_models: 2
+  auto_download: false
+  default_models:
+    llm: "current_llm"
+    embedding: "current_embedding"

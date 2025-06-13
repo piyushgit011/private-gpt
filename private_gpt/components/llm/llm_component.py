@@ -8,6 +8,8 @@ from llama_index.core.settings import Settings as LlamaIndexSettings
 from llama_index.core.utils import set_global_tokenizer
 from transformers import AutoTokenizer  # type: ignore
 
+from private_gpt.components.model_manager.model_manager_component import ModelManagerComponent
+from private_gpt.components.model_manager.model_registry import ModelRegistry
 from private_gpt.components.llm.prompt_helper import get_prompt_style
 from private_gpt.paths import models_cache_path, models_path
 from private_gpt.settings.settings import Settings

@@ -1,9 +1,31 @@
-from typing import Any, Literal
+from typing import Any, Dict, Literal
 
 from pydantic import BaseModel, Field
 
 from private_gpt.settings.settings_loader import load_active_settings
 
+
+
+class ModelManagerSettings(BaseModel):
+    enabled: bool = Field(
+        True,
+        description="Enable the model manager for hot-swappable models"
+    )
+    max_loaded_models: int = Field(
+        3,
+        description="Maximum number of models to keep loaded in memory"
+    )
+    default_models: Dict[str, str] = Field(
+        default_factory=lambda: {
+            "llm": "current_llm",
+            "embedding": "current_embedding"
+        },
+        description="Default model IDs for each type"
+    )
+    auto_download: bool = Field(
+        False,
+        description="Automatically download models when requested"
+    )
 
 class CorsSettings(BaseModel):
     """CORS configuration.
@@ -608,6 +630,10 @@ class Settings(BaseModel):
     postgres: PostgresSettings | None = None
     clickhouse: ClickHouseSettings | None = None
     milvus: MilvusSettings | None = None
+    models: ModelManagerSettings = Field(  # Changed from model_manager to models
+        default_factory=ModelManagerSettings,
+        description="Model manager configuration"
+    )
 
 
 """
